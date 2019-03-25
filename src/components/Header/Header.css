@@ -1,0 +1,23 @@
+.header {
+  width: 100vw;
+  height: 6vh;
+  background-color: #097567;
+  display: table-cell;
+  vertical-align: middle;
+  padding: 1vh 0;
+}
+
+.header h1 {
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 1.5em;
+  display: inline-table;
+  margin-top: 6px;
+  padding-top: 5px;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
