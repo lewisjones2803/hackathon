@@ -6,17 +6,14 @@ import Chart from 'chartjs-plugin-annotation';
 class TireVis extends React.Component {
   constructor(props) {
     super(props);
-    this.updateCoords(0.0, 0.0);
-  }
 
-  updateCoords(xVal, yVal) {
     this.state = {
       chartData: {
         datasets: [{
           label: 'Accelerometer data',
           data: [{
-            x: xVal,
-            y: yVal
+            x: 0.0,
+            y: 0.0
           }]
         }]
       },
@@ -39,28 +36,47 @@ class TireVis extends React.Component {
             }
           }]
         }
-
       }
-
     }
   }
 
+  componentDidUpdate(){
+    let x = this.props.x || 0.0;
+    let y = this.props.y || 0.0;
+
+    this.updateCoords(x, y);
+  }
+
+  updateCoords(xVal, yVal) {
+    this.state.chartData = {
+      datasets: [{
+        label: 'Accelerometer data',
+        data: [{
+          x: xVal,
+          y: yVal
+        }]
+      }]
+    };
+  }
+
   render() {
-    return (
-      <div className="container">
-        <div className="row">
-          <div className="col-8 offset-2">
-            <div className="scatter canvas">
-              <Scatter
-                className="canvas"
-                data={this.state.chartData}
-                options={this.state.options} />
+    if (this.state.chartData){
+      return (
+        <div className="container">
+          <div className="row">
+            <div className="col-8 offset-2">
+              <div className="scatter canvas">
+                <Scatter
+                  className="canvas"
+                  data={this.state.chartData}
+                  options={this.state.options} />
+              </div>
             </div>
           </div>
         </div>
-      </div >
-
-    )
+      )
+    }
+    return <div></div>
   }
 }
 
