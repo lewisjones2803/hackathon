@@ -13,6 +13,8 @@ class DataDisplay extends React.Component {
     }
 
     this.state = {
+      lapCount: 0,
+      lapBufferCounter: 10, // 2 second buffer
       accelerometerData: {
         sensorId: '',
         x: 0,
@@ -189,10 +191,21 @@ class DataDisplay extends React.Component {
           luxometerDataMin.lux = luxometerData.lux;
         }
 
+        let lapCount = this.state.lapCount;
+        let lapBufferCounter = this.state.lapBufferCounter;
+        if (luxometerData.lux <= 20 && lapBufferCounter <= 0){
+          lapCount++;
+          lapBufferCounter = 5;
+        }
+
+        lapBufferCounter--;
+
         this.setState({
           luxometerData: data,
           luxometerDataMax: luxometerDataMax,
-          luxometerDataMin: luxometerDataMin
+          luxometerDataMin: luxometerDataMin,
+          lapCount: lapCount,
+          lapBufferCounter: lapBufferCounter
         });
       }
 
@@ -265,7 +278,16 @@ class DataDisplay extends React.Component {
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-12">
+          <div className="col-sm-6">
+            <div className="lap-count">
+              <h1>Lap Count</h1>
+              <p>
+                {this.state.lapCount}
+              </p>
+            </div>
+          </div>
+          <div className="col-sm-6">
+            <h1>Live Data</h1>
             <TireVis x={this.state.accelerometerData.x} y={this.state.accelerometerData.y} mode="REALTIME" />
           </div>
         </div>
