@@ -58,6 +58,14 @@ class DataDisplay extends React.Component {
         let accelerometerDataMax = this.state.accelerometerDataMax;
         let accelerometerDataMin = this.state.accelerometerDataMin;
 
+        // ensure we don't compare with the default of 0
+        if (accelerometerDataMax.x === 0) accelerometerDataMax.x = accelerometerData.x;
+        if (accelerometerDataMax.y === 0) accelerometerDataMax.y = accelerometerData.y;
+        if (accelerometerDataMax.z === 0) accelerometerDataMax.z = accelerometerData.z;
+        if (accelerometerDataMin.x === 0) accelerometerDataMin.x = accelerometerData.x;
+        if (accelerometerDataMin.y === 0) accelerometerDataMin.y = accelerometerData.y;
+        if (accelerometerDataMin.z === 0) accelerometerDataMin.z = accelerometerData.z;
+
         if (accelerometerData.x > accelerometerDataMax.x){
           accelerometerDataMax.x = accelerometerData.x;
         }
@@ -104,7 +112,7 @@ class DataDisplay extends React.Component {
 
     subscribeMagnetometer((data) => {
       if (data.sensorId === this.players.PLAYER1){
-        // {}
+        // {sensorId: "e96122f9c20c45528b7663f5dbafff95", x: "-13.79", y: "0.15", z: "-29.53"}
         let magnetometerData = data;
 
         magnetometerData.x *= 1;
@@ -113,6 +121,13 @@ class DataDisplay extends React.Component {
 
         let magnetometerDataMax = this.state.magnetometerDataMax;
         let magnetometerDataMin = this.state.magnetometerDataMin;
+
+        if (magnetometerDataMax.x === 0) magnetometerDataMax.x = magnetometerData.x;
+        if (magnetometerDataMax.y === 0) magnetometerDataMax.y = magnetometerData.y;
+        if (magnetometerDataMax.z === 0) magnetometerDataMax.z = magnetometerData.z;
+        if (magnetometerDataMin.x === 0) magnetometerDataMin.x = magnetometerData.x;
+        if (magnetometerDataMin.y === 0) magnetometerDataMin.y = magnetometerData.y;
+        if (magnetometerDataMin.z === 0) magnetometerDataMin.z = magnetometerData.z;
 
         if (magnetometerData.x > magnetometerDataMax.x){
           magnetometerDataMax.x = magnetometerData.x;
