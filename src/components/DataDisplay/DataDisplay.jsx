@@ -34,8 +34,8 @@ class DataDisplay extends React.Component {
   render() {
     return(
       <div>
+        <h1>accelerometerData:</h1>
         <p>
-          accelerometerData: <br />
           x: {this.state.accelerometerData.x} <br />
           y: {this.state.accelerometerData.y} <br />
           z: {this.state.accelerometerData.z}
