@@ -9,7 +9,17 @@ function subscribeButtonPress(cb) {
   socket.on('BUTTON_PRESS', cb);
 }
 
+function subscribeMagnetometer(cb) {
+  socket.on('MAGNETOMETER_CHANGE', cb);
+}
+
+function subscribeLuxometer(cb) {
+  socket.on('LUXOMETER_CHANGE', cb);
+}
+
 export {
   subscribeAccelerometer,
-  subscribeButtonPress
+  subscribeButtonPress,
+  subscribeMagnetometer,
+  subscribeLuxometer
 };
