@@ -1,6 +1,7 @@
 import React from 'react';
 import './DataDisplay.scss';
 import { subscribeAccelerometer, subscribeButtonPress, subscribeMagnetometer } from './socket';
+import TireVis from '../TireVis/TireVis';
 
 class DataDisplay extends React.Component {
   constructor(props) {
@@ -210,6 +211,9 @@ class DataDisplay extends React.Component {
             <p>
               buttonPressData: {this.state.buttonPressData}
             </p>
+          </div>
+          <div className="col-sm-6">
+            <TireVis x={this.state.accelerometerData.x} y={this.state.accelerometerData.y} />
           </div>
         </div>
       </div>
