@@ -18,7 +18,6 @@ class StartPanel extends Component {
         this.startClock = this.startClock.bind(this);
         this.stopClock = this.stopClock.bind(this);
         this.resetClock = this.resetClock.bind(this);
-        this.checkTimer = this.checkTimer.bind(this);
 
     }
 
@@ -52,13 +51,23 @@ class StartPanel extends Component {
         this.setState({ playerTwoReady: true });
     }
 
-    checkTimer() {
-        if (this.state.time >= 10000) {
-            clearInterval(this.timer);
-            return(
-                <span>Race Completed</span>
-            )
-        }
+    checkReadiness() {
+      if (this.state.time >= 10000) {
+          clearInterval(this.timer);
+          return(
+            <React.Fragment>
+              <br />
+              <span>Race Completed</span>
+            </React.Fragment>
+          )
+      } else {
+        return (
+          <React.Fragment>
+            <button className={this.state.playerOneReady ? "btn-success" : "btn-danger"} onClick={this.readyPlayerOne}>Ready player one</button>
+            <button className={this.state.playerTwoReady ? "btn-success" : "btn-danger"} onClick={this.readyPlayerTwo}>Ready player two</button>
+          </React.Fragment>
+        )
+      }
     }
 
     render() {
@@ -69,10 +78,7 @@ class StartPanel extends Component {
                     <button className="btn-danger" onClick={this.stopClock}>Stop Clock</button>
                     <button className="btn-dark" onClick={this.resetClock}>Reset Race</button>
                     <br />
-                    {this.checkTimer()}
-                    <button className="btn-success" onClick={this.readyPlayerOne}>{this.state.playerOneReady.toString()}</button>
-                    <button className="btn-success" onClick={this.readyPlayerTwo}>{this.state.playerTwoReady.toString()}</button>
-
+                    {this.checkReadiness()}
                 </div>
 
             );

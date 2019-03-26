@@ -1,6 +1,7 @@
 import React from 'react';
 import './DataDisplay.scss';
 import TireVis from '../TireVis/TireVis';
+import StartPanel from '../StartPanel/StartPanel';
 import { subscribeAccelerometer, subscribeButtonPress, subscribeMagnetometer, subscribeLuxometer } from './socket';
 
 class DataDisplay extends React.Component {
@@ -216,6 +217,25 @@ class DataDisplay extends React.Component {
     return(
       <div>
         <div className="row">
+          <div className="col-sm-6">
+            <StartPanel />
+          </div>
+          <div className="col-sm-6">
+            <div className="lap-count">
+              <h1>Lap Count</h1>
+              <p>
+                {this.state.lapCount}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <h1>Live Data</h1>
+            <TireVis x={this.state.accelerometerData.x} y={this.state.accelerometerData.y} mode="REALTIME" />
+          </div>
+        </div>
+        <div className="row">
           <div className="col-sm-3">
             <h1>accelerometerData:</h1>
             <p>
@@ -275,20 +295,6 @@ class DataDisplay extends React.Component {
             <p>
               buttonPressData: {this.state.buttonPressData}
             </p>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-sm-6">
-            <div className="lap-count">
-              <h1>Lap Count</h1>
-              <p>
-                {this.state.lapCount}
-              </p>
-            </div>
-          </div>
-          <div className="col-sm-6">
-            <h1>Live Data</h1>
-            <TireVis x={this.state.accelerometerData.x} y={this.state.accelerometerData.y} mode="REALTIME" />
           </div>
         </div>
       </div>
