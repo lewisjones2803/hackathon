@@ -1,7 +1,9 @@
+@import '../../stylesheets/index';
+
 .header {
   width: 100vw;
   height: 6vh;
-  background-color: #097567;
+  background-color: $primary;
   display: table-cell;
   vertical-align: middle;
   padding: 1vh 0;
