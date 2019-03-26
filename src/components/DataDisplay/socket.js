@@ -9,7 +9,12 @@ function subscribeButtonPress(cb) {
   socket.on('BUTTON_PRESS', cb);
 }
 
+function subscribeMagnetometer(cb) {
+  socket.on('MAGNETOMETER_CHANGE', cb);
+}
+
 export {
   subscribeAccelerometer,
-  subscribeButtonPress
+  subscribeButtonPress,
+  subscribeMagnetometer
 };
