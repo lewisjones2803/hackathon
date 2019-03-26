@@ -1,6 +1,6 @@
 import React from 'react';
 import './DataDisplay.scss';
-import { subscribeAccelerometer, subscribeButtonPress, subscribeMagnetometer } from './socket';
+import { subscribeAccelerometer, subscribeButtonPress, subscribeMagnetometer, subscribeLuxometer } from './socket';
 
 class DataDisplay extends React.Component {
   constructor(props) {
@@ -43,6 +43,15 @@ class DataDisplay extends React.Component {
         x: 0,
         y: 0,
         z: 0
+      },
+      luxometerData: {
+        lux: 0
+      },
+      luxometerDataMax: {
+        lux: 0
+      },
+      luxometerDataMin: {
+        lux: 0
       }
     }
 
@@ -142,6 +151,33 @@ class DataDisplay extends React.Component {
       }
 
     });
+
+    subscribeLuxometer((data) => {
+      if (data.sensorId === this.players.PLAYER1){
+        // {}
+        let luxometerData = data;
+
+        luxometerData.lux *= 1;
+
+        let luxometerDataMax = this.state.luxometerDataMax;
+        let luxometerDataMin = this.state.luxometerDataMin;
+
+        if (luxometerData.lux > luxometerDataMax.lux){
+          luxometerDataMax.lux = luxometerData.lux;
+        }
+
+        if (luxometerData.lux < luxometerDataMin.lux){
+          luxometerDataMin.lux = luxometerData.lux;
+        }
+
+        this.setState({
+          luxometerData: data,
+          luxometerDataMax: luxometerDataMax,
+          luxometerDataMin: luxometerDataMin
+        });
+      }
+
+    });
   }
 
   render() {
@@ -177,16 +213,28 @@ class DataDisplay extends React.Component {
             </p>
             <p>
               MAX <br />
-              x: {this.state.magnetometerDataMax.x} <br />
-              y: {this.state.magnetometerDataMax.y} <br />
-              z: {this.state.magnetometerDataMax.z}
+              x: {this.state.luxometerDataMax.x} <br />
+              y: {this.state.luxometerDataMax.y} <br />
+              z: {this.state.luxometerDataMax.z}
             </p>
             <p>
               MIN <br />
-              x: {this.state.magnetometerDataMin.x} <br />
-              y: {this.state.magnetometerDataMin.y} <br />
-              z: {this.state.magnetometerDataMin.z}
+              x: {this.state.luxometerDataMin.lux} <br />
             </p>
+            <div className="col-sm-6">
+              <h1>luxometerData:</h1>
+              <p>
+                x: {this.state.luxometerData.lux} <br />
+              </p>
+              <p>
+                MAX <br />
+                x: {this.state.luxometerDataMax.lux} <br />
+              </p>
+              <p>
+                MIN <br />
+                x: {this.state.luxometerDataMin.lux} <br />
+              </p>
+            </div>
           </div>
         </div>
         <div className="row">
