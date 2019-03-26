@@ -8,6 +8,7 @@ class TireVis extends React.Component {
     super(props);
 
     this.state = {
+      updateInterval: 50,
       chartData: {
         datasets: [{
           label: 'Accelerometer data',
@@ -44,7 +45,16 @@ class TireVis extends React.Component {
     let x = this.props.x || 0.0;
     let y = this.props.y || 0.0;
 
-    this.updateCoords(x, y);
+    if (this.props.mode === 'REALTIME'){
+      this.updateCoords(x, y);
+    } else if (this.props.mode === 'HISTORY'){
+      if (this.state.updateInterval <= 0){
+        this.addCoords(x, y);
+        this.state.updateInterval = 50;
+      } else {
+        this.state.updateInterval --;
+      }
+    }
   }
 
   updateCoords(xVal, yVal) {

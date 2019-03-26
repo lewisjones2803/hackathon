@@ -178,6 +178,9 @@ class DataDisplay extends React.Component {
         let luxometerDataMax = this.state.luxometerDataMax;
         let luxometerDataMin = this.state.luxometerDataMin;
 
+        if (luxometerDataMax.lux === 0) luxometerDataMax.lux = luxometerData.lux;
+        if (luxometerDataMin.lux === 0) luxometerDataMin.lux = luxometerData.lux;
+
         if (luxometerData.lux > luxometerDataMax.lux){
           luxometerDataMax.lux = luxometerData.lux;
         }
@@ -200,7 +203,7 @@ class DataDisplay extends React.Component {
     return(
       <div>
         <div className="row">
-          <div className="col-sm-6">
+          <div className="col-sm-3">
             <h1>accelerometerData:</h1>
             <p>
               x: {this.state.accelerometerData.x} <br />
@@ -220,7 +223,7 @@ class DataDisplay extends React.Component {
               z: {this.state.accelerometerDataMin.z}
             </p>
           </div>
-          <div className="col-sm-6">
+          <div className="col-sm-3">
             <h1>magnetometerData:</h1>
             <p>
               x: {this.state.magnetometerData.x} <br />
@@ -229,39 +232,41 @@ class DataDisplay extends React.Component {
             </p>
             <p>
               MAX <br />
-              x: {this.state.luxometerDataMax.x} <br />
-              y: {this.state.luxometerDataMax.y} <br />
-              z: {this.state.luxometerDataMax.z}
+              x: {this.state.magnetometerDataMax.x} <br />
+              y: {this.state.magnetometerDataMax.y} <br />
+              z: {this.state.magnetometerDataMax.z}
+            </p>
+            <p>
+              MIN <br />
+              x: {this.state.magnetometerDataMin.lux} <br />
+              y: {this.state.magnetometerDataMin.y} <br />
+              z: {this.state.magnetometerDataMin.z}
+            </p>
+          </div>
+          <div className="col-sm-3">
+            <h1>luxometerData:</h1>
+            <p>
+              x: {this.state.luxometerData.lux} <br />
+            </p>
+            <p>
+              MAX <br />
+              x: {this.state.luxometerDataMax.lux} <br />
             </p>
             <p>
               MIN <br />
               x: {this.state.luxometerDataMin.lux} <br />
             </p>
-            <div className="col-sm-6">
-              <h1>luxometerData:</h1>
-              <p>
-                x: {this.state.luxometerData.lux} <br />
-              </p>
-              <p>
-                MAX <br />
-                x: {this.state.luxometerDataMax.lux} <br />
-              </p>
-              <p>
-                MIN <br />
-                x: {this.state.luxometerDataMin.lux} <br />
-              </p>
-            </div>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-sm-6">
+          <div className="col-sm-3">
             <h1>Button Press</h1>
             <p>
               buttonPressData: {this.state.buttonPressData}
             </p>
           </div>
-          <div className="col-sm-6">
-            <TireVis x={this.state.accelerometerData.x} y={this.state.accelerometerData.y} />
+        </div>
+        <div className="row">
+          <div className="col-sm-12">
+            <TireVis x={this.state.accelerometerData.x} y={this.state.accelerometerData.y} mode="REALTIME" />
           </div>
         </div>
       </div>
